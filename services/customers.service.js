@@ -1,6 +1,7 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
+
 class CustomerService {
 
   constructor() {}
@@ -21,9 +22,11 @@ class CustomerService {
   }
 
   async create(data) {
+
     const newCustomer = await models.Customer.create(data, {
       include: ['user']
     });
+    delete newCustomer.user.dataValues.password;
     return newCustomer;
   }
 
